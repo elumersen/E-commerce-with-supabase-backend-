@@ -50,7 +50,7 @@ export default async function Signup({
 
   return (
     <div className="flex flex-col w-full px-8 h-screen items-center justify-center gap-2 bg-gradient-to-r from-slate-300 to-slate-500">
-      <video className="w-screen h-screen object-cover fixed left-0 top-0 right-0 bottom-0 z-1" autoPlay loop muted poster="https://assets.codepen.io/6093409/river.jpg">
+      <video className="w-screen h-screen object-cover fixed left-0 top-0 right-0 bottom-0 z-1" autoPlay loop muted poster="/thumbnail.jpeg">
         <source src="/bg-video.mp4" type="video/mp4" />
       </video>
       <form
@@ -61,7 +61,7 @@ export default async function Signup({
           Email
         </label>
         <input
-          className="bg-white/40 rounded-md px-4 py-2 border mb-6 placeholder:text-white"
+          className="bg-white/40 rounded-md px-4 py-2 border mb-6 placeholder:text-white focus:outline-none"
           name="email"
           placeholder="you@example.com"
           required
@@ -70,7 +70,7 @@ export default async function Signup({
           Password
         </label>
         <input
-          className="bg-white/40 rounded-md px-4 py-2 border mb-6 placeholder:text-white"
+          className="bg-white/40 rounded-md px-4 py-2 border mb-6 placeholder:text-white focus:outline-none"
           type="password"
           name="password"
           placeholder="••••••••"
@@ -80,7 +80,7 @@ export default async function Signup({
           Confirm Password
         </label>
         <input
-          className="bg-white/40 rounded-md px-4 py-2 border mb-6 placeholder:text-white"
+          className="bg-white/40 rounded-md px-4 py-2 border mb-6 placeholder:text-white focus:outline-none"
           type="password"
           name="confirmPassword"
           placeholder="••••••••"
