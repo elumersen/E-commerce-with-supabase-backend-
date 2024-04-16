@@ -25,35 +25,13 @@ export default function Login({
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/protected");
+    return redirect("/");
   };
 
-  const signUp = async (formData: FormData) => {
-    "use server";
-
-    const origin = headers().get("origin");
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const supabase = createClient();
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-      },
-    });
-
-    if (error) {
-      return redirect("/login?message=Could not authenticate user");
-    }
-
-    return redirect("/login?message=Check email to continue sign in process");
-  };
 
   return (
     <div className="flex flex-col w-full px-8 h-screen items-center justify-center gap-2 bg-gradient-to-r from-slate-300 to-slate-500">
-      <video className="w-screen h-screen object-cover fixed left-0 top-0 right-0 bottom-0 z-1" autoPlay loop muted poster="https://assets.codepen.io/6093409/river.jpg">
+      <video className="w-screen h-screen object-cover fixed left-0 top-0 right-0 bottom-0 z-1" autoPlay loop muted poster="/thumbnail.jpeg">
         <source src="/bg-video.mp4" type="video/mp4" />
       </video>
       <form className="animate-in border border-white flex flex-col w-full justify-center gap-2 text-foreground bg-transparent backdrop-blur-2xl sm:max-w-80 h-auto p-10 rounded-md shadow-md">
@@ -61,7 +39,7 @@ export default function Login({
           Email
         </label>
         <input
-          className="rounded-md bg-white/40 px-4 py-2 border mb-6 placeholder:text-white"
+          className="rounded-md bg-white/40 px-4 py-2 border mb-6 text-white placeholder:text-white focus:outline-none"
           name="email"
           placeholder="you@example.com"
           required
@@ -70,7 +48,7 @@ export default function Login({
           Password
         </label>
         <input
-          className="bg-white/40 rounded-md px-4 py-2 border mb-6 placeholder:text-white"
+          className="bg-white/40 rounded-md px-4 py-2 border mb-6 text-white placeholder:text-white focus:outline-none"
           type="password"
           name="password"
           placeholder="••••••••"
@@ -84,7 +62,7 @@ export default function Login({
           Sign In
         </SubmitButton>
         {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+          <p className="mt-4 p-4 bg-foreground/10 text-gray-300 text-center">
             {searchParams.message}
           </p>
         )}
