@@ -1,5 +1,10 @@
+import React, { useState } from 'react';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default async function User() {
   const supabase = createClient();
@@ -16,13 +21,15 @@ export default async function User() {
     return redirect('/login');
   };
 
+
   return (
     session && (
       <div className="flex items-center gap-4">
-        Hey, {session.user.email}!
         <form action={signOut}>
-          <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-            Logout
+          <button className="py-2 px-4 rounded-md no-underline">
+            <FontAwesomeIcon icon={faArrowRightFromBracket} />
+          </button>
+          <button>
           </button>
         </form>
       </div>
