@@ -1,3 +1,5 @@
+"use client";
+
 import { createClient } from '@/utils/supabase/client';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -8,7 +8,7 @@ class Products {
   async getAllProducts(): Promise<TProducts> {
     try {
       const { error, data: products } = await supabase
-        .from('products ')
+        .from('products')
         .select()
         .order('id', { ascending: true });
 

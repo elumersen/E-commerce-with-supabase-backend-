@@ -2,6 +2,8 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import { CartProvider } from "@/context/CartContext";
+import Header from "@/components/Header";
 
 config.autoAddCss = false;
 const defaultUrl = process.env.VERCEL_URL
@@ -23,7 +25,10 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
         <main className="min-h-screen flex flex-col items-center justify-center">
+        <CartProvider >
+          <Header />
           {children}
+        </CartProvider>
         </main>
       </body>
     </html>
