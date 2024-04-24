@@ -19,12 +19,6 @@ const Product = ({ product }: ProductProps) => {
         <p className="text-base text-gray-300 font-semibold">{album}</p>
         <h3 className="text-sm text-gray-400">{artist}</h3>
         <p className="text-sm text-gray-400">{price} $</p>
-        {/* <p className="text-xs text-gray-200 mt-2">
-          <FontAwesomeIcon
-            className="text-base text-gray-200"
-            icon={faCartShopping}
-          />
-        </p> */}
         <ProductCartButton product={product}/>
       </div>
     </div>

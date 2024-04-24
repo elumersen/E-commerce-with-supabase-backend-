@@ -1,36 +1,58 @@
-// "use client";
-// import React, { useEffect, useState } from "react";
-// import { cartService } from "@/services/cartProducts";
-// import { productsService } from "@/services/product";
-// import { TProducts } from "@/types";
-// import { faXmark } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { useCart } from "@/context/CartContext";
-// import ShoppingCartTable from "./ShoppingCartTable";
+import React from "react";
+import { IProduct } from "@/models/productModel";
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import ShoppingCartRemoveButton from "./ShoppincartRemoveButton";
 
-// interface ShoppingCartPanelProps {
-//   onClose: () => void;
-// }
+export type CartProps = {
+  cartProducts: IProduct;
+  quantity: number;
+};
+const ShoppingCart = ({ cartProducts, quantity }: CartProps) => {
+  const { album, artist, year, price, thumbnail, genre } = cartProducts;
 
-// const ShoppingCartPanel = () => {
-//   const { handleCart, isCartOpen, setIsCartOpen } = useCart();
+  // const { quantity } = cartProducts;
+  // const { album } = product_id;
+  // console.log('album', album)
 
-//   return (
-//     <>
-//       {isCartOpen && (
-//         <div className="fixed top-0 right-0 bottom-0 w-64 bg-white shadow-lg z-10 p-4">
-//           <button
-//             className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-//             onClick={() => setIsCartOpen(false)}
-//           >
-//             <FontAwesomeIcon icon={faXmark} />
-//           </button>
-//           <h2 className="text-lg font-semibold mb-4">Shopping cart</h2>
-//           <ShoppingCartTable />
-//         </div>
-//       )}
-//     </>
-//   );
-// };
+  return (
+    <div className="flex flex-row w-full max-w-[780px] items-center">
+      <div className="grid grid-cols-5 gap-2 w-full bg-[#E5E9EA] rounded-md p-4 mb-3">
+        <div className="rounded-md">
+          <Image width={120} height={120} src={thumbnail} alt="product" />
+        </div>
+        <div className="flex items-center space-x-4">
+          <div className="flex flex-col justify-center">
+            <p className="text-gray-400 text-sm">
+              {album} - {year}
+            </p>
+            <p className="text-gray-300 text-xs">{artist}</p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-4">
+          <p className="text-gray-400 text-sm">{genre}</p>
+        </div>
+        <div className="flex flex-row items-center w-7 justify-between">
+          <p className="text-gray-400 text-sm">{quantity}</p>
+          <div className="flex flex-col pl-5">
+            <FontAwesomeIcon
+              icon={faPlus}
+              className="rounded-full bg-gray-400 p-1 text-xs h-5 w-3 mb-2"
+            />
+            <FontAwesomeIcon
+              icon={faMinus}
+              className="rounded-full bg-gray-400 p-1 text-xs h-5 w-3"
+            />
+          </div>
+        </div>
+        <div className="flex items-center space-x-4">
+          <p className="text-gray-400 text-sm">{price} $</p>
+        </div>
+      </div>
+      <ShoppingCartRemoveButton />
+    </div>
+  );
+};
 
-// export default ShoppingCartPanel;
+export default ShoppingCart;

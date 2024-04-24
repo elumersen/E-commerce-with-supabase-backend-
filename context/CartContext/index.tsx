@@ -2,47 +2,52 @@
 
 import React, { Dispatch, SetStateAction, createContext, useContext, useState } from 'react';
 import { addProduct } from "@/app/lib/actions/add-product";
+import { deleteProduct } from "@/app/lib/actions/delete-product";
 import { IProduct } from '@/models/productModel';
 
 interface CartContextType {
-    cart: IProduct[];
-    addToCart: (userId:string, product: IProduct, quantity: number) => void;
-    handleCart: () => void;
-    isCartOpen: boolean;
-    setIsCartOpen: Dispatch<SetStateAction<boolean>>;
+  cart: IProduct[];
+  addToCart: (userId: string, product: IProduct, quantity: number) => void;
+  removeFromCart: (productId: number) => void;
+}
 
+const CartContext = createContext<CartContextType | undefined>(undefined);
+
+export const useCart = () => {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error('useCart must be used within a CartProvider');
   }
+  return context;
+};
 
-  const CartContext = createContext<CartContextType | undefined>(undefined);
-  
-  export const useCart = () => {
-    const context = useContext(CartContext);
-    if (!context) {
-      throw new Error('useCart must be used within a CartProvider');
+export function CartProvider({ children }: { children: React.ReactNode }) {
+  const [cart, setCart] = useState<IProduct[]>([]);
+
+  const addToCart = async (userId: string, product: IProduct, quantity: number) => {
+    try {
+      await addProduct(userId, product.id, quantity);
+      setCart([...cart, product]);
+    } catch (error: any) {
+      console.error('Error adding product to cart:', error.message);
     }
-    return context;
   };
 
-  export function CartProvider({ children }: { children: React.ReactNode }) {
-    const [cart, setCart] = useState<IProduct[]>([]);
-    const [isCartOpen, setIsCartOpen] = useState(false);
-  
-    const addToCart = async ( userId:string, product: IProduct, quantity: number) => {
-      try {
-        await addProduct(userId, product.id, quantity ); 
-        setCart([...cart, product]);
-      } catch (error: any) {
-        console.error('Error adding product to cart:', error.message);
-      }
-    };
+  const removeFromCart = async (productId: number) => {
+    try {
 
-     function handleCart() {
-        setIsCartOpen(!isCartOpen);
+      await deleteProduct(productId);
+
+      const updatedCart = cart.filter(product => product.id !== productId);
+      setCart(updatedCart);
+    } catch (error: any) {
+      console.error('Error removing product from cart:', error.message);
     }
-  
-    return (
-      <CartContext.Provider value={{ cart, addToCart, handleCart, isCartOpen, setIsCartOpen }}>
-        {children}
-      </CartContext.Provider>
-    );
-  }
+  };
+
+  return (
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+      {children}
+    </CartContext.Provider>
+  );
+}

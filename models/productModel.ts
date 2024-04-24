@@ -1,9 +1,10 @@
 export interface IProduct {
-    id: number;
-    artist: string;
-    album: string;
-    year: string;
-    price: number
-    genre: string;
-    thumbnail: string;
-  }
+  id: number;
+  year: string;
+  album: string;
+  genre: string;
+  artist: string;
+  price: number
+  thumbnail: string;
+  available: boolean,
+}

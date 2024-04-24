@@ -15,7 +15,6 @@ const ProductsList = async () => {
           product={product}
         />
       ))}
-
     </div>
   );
 };
