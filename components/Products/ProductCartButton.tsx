@@ -5,6 +5,7 @@ import { getUserLogged } from "@/utils/getUserLogged";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export type ProductCartButtonProps = {
   product: IProduct,
@@ -24,10 +25,13 @@ const ProductCartButton = ({ product }: ProductCartButtonProps) => {
     getUserId()
   }, [])
 
-
-  const handleAddToCart = () => {
-    addToCart(userId, product, 1);
-    console.log('product', product)
+  const handleAddToCart = async () => {
+    try {
+      addToCart(userId, product, 1);
+      toast.success("Product added to cart");
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   };
 
   return (

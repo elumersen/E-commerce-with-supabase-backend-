@@ -8,13 +8,10 @@ import ShoppingCartRemoveButton from "./ShoppincartRemoveButton";
 export type CartProps = {
   cartProducts: IProduct;
   quantity: number;
+  cartId: number;
 };
-const ShoppingCart = ({ cartProducts, quantity }: CartProps) => {
+const ShoppingCart = ({ cartProducts, quantity, cartId }: CartProps) => {
   const { album, artist, year, price, thumbnail, genre } = cartProducts;
-
-  // const { quantity } = cartProducts;
-  // const { album } = product_id;
-  // console.log('album', album)
 
   return (
     <div className="flex flex-row w-full max-w-[780px] items-center">
@@ -50,7 +47,7 @@ const ShoppingCart = ({ cartProducts, quantity }: CartProps) => {
           <p className="text-gray-400 text-sm">{price} $</p>
         </div>
       </div>
-      <ShoppingCartRemoveButton />
+      <ShoppingCartRemoveButton cartId={cartId} />
     </div>
   );
 };

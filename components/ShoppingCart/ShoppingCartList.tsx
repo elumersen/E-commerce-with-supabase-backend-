@@ -12,6 +12,7 @@ const ShoppingCartTList = async () => {
       {carts.map((cart: ICartItem) => (
         <ShoppingCart
           key={cart.id}
+          cartId={cart.id}
           quantity={cart.quantity}
           cartProducts={cart.product_id}
         />
