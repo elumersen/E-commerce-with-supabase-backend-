@@ -49,10 +49,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const updateQuantity = async (newQuantity: number, productId: number) => {
+  const updateQuantity = async (productId: number, newQuantity: number) => {
 
     try {
-      await updateCartItemQuantity(newQuantity, productId);
+      await updateCartItemQuantity(productId, newQuantity);
       const updatedCart = cartDetails.map(cart => {
         if (cart.id === productId) {
           return { ...cart, quantity: newQuantity };

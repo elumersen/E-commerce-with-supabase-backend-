@@ -21,17 +21,16 @@ const ShoppingCartQuantityButtons = ({
 
     const increaseCount = async () => {
         setQuantity(quantity + 1);
-        await updateQuantity(quantity,  cartId);
+        await updateQuantity(cartId, quantity);
     };
 
     const decreaseCount = async () => {
         if (quantity > 1) {
-            setQuantity(quantity - 1);
-            await updateQuantity(quantity - 1, cartId);
+            setQuantity(quantity - 1); 
+            await updateQuantity(cartId, quantity - 1);
         }
     };
-
-
+    
 
     return (
         <div className="flex flex-row items-center w-7 justify-between">
