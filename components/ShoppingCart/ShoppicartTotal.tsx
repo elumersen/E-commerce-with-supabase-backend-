@@ -15,7 +15,7 @@ const ShoppingCartTotal = ({ carts }: CartProps) => {
     }, [carts]);
 
     return (
-        <p className='text-gray-500'>Total: ${totalPrice.toFixed(2)}</p>
+        <p className='text-gray-500'>Total: $ {totalPrice.toFixed(2)}</p>
     );
 };
 

@@ -1,8 +1,8 @@
-import React from "react";
 import { IProduct } from "@/models/productModel";
 import Image from "next/image";
 import ShoppingCartRemoveButton from "./ShoppincartRemoveButton";
 import ShoppingCartQuantityButtons from "./ShoppingCartQuantityButtons";
+import CheckoutSummary from "../Checkout/ChekcoutSummary";
 
 export type CartProps = {
   cartProducts: IProduct;
