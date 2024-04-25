@@ -13,7 +13,7 @@ const ShoppingCart = ({ cartProducts, quantity, cartId }: CartProps) => {
   const { album, artist, year, price, thumbnail, genre } = cartProducts;
 
   return (
-    <div className="flex flex-row w-full max-w-[780px] items-center">
+    <div className="flex flex-row w-full items-center">
       <div className="grid grid-cols-5 gap-2 w-full bg-[#E5E9EA] rounded-md p-4 mb-3">
         <div className="rounded-md">
           <Image width={120} height={120} src={thumbnail} alt="product" />

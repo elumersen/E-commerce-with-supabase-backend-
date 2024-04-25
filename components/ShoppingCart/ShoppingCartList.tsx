@@ -3,6 +3,7 @@ import { TCartItem } from "@/types/";
 import { ICartItem } from "@/models/cartItemModel";
 import ShoppingCart from ".";
 import ShoppingCartTotal from "./ShoppicartTotal";
+import Link from "next/link";
 
 const ShoppingCartTList = async () => {
   const carts: TCartItem = await cartService.getCartProducts();
@@ -18,7 +19,17 @@ const ShoppingCartTList = async () => {
           cartProducts={cart.product_id}
         />
       ))}
-      <ShoppingCartTotal carts={carts} />
+      <div>
+        <div className="flex flex-row justify-between w-full max-w-[840px]">
+          <Link
+            href="/"
+            className="text-gray-700 text-base hover:text-gray-900 focus:outline-none"
+          >
+           Back to shop
+          </Link>
+          <ShoppingCartTotal carts={carts} />
+        </div>
+      </div>
     </div>
   );
 };
