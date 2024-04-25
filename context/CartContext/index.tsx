@@ -1,14 +1,17 @@
 'use client';
 
-import React, { Dispatch, SetStateAction, createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { addProduct } from "@/app/lib/actions/add-product";
 import { deleteProduct } from "@/app/lib/actions/delete-product";
+import { updateCartItemQuantity } from "@/app/lib/actions/update-cart-quantity";
 import { IProduct } from '@/models/productModel';
+import { ICartItem } from '@/models/cartItemModel';
 
 interface CartContextType {
   cart: IProduct[];
   addToCart: (userId: string, product: IProduct, quantity: number) => void;
   removeFromCart: (productId: number) => void;
+  updateQuantity: (productId: number, newQuantity: number) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -23,6 +26,7 @@ export const useCart = () => {
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<IProduct[]>([]);
+  const [cartDetails, setCartDetails] = useState<ICartItem[]>([]);
 
   const addToCart = async (userId: string, product: IProduct, quantity: number) => {
     try {
@@ -45,8 +49,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updateQuantity = async (newQuantity: number, productId: number) => {
+
+    try {
+      await updateCartItemQuantity(newQuantity, productId);
+      const updatedCart = cartDetails.map(cart => {
+        if (cart.id === productId) {
+          return { ...cart, quantity: newQuantity };
+        }
+        setCartDetails(updatedCart);
+        return cart;
+      });
+    } catch (error: any) {
+      console.error('Error removing product from cart:', error.message);
+    }
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity }}>
       {children}
     </CartContext.Provider>
   );

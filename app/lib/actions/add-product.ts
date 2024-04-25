@@ -2,6 +2,7 @@
 
 import { ICart } from '@/models/cart';
 import { createClient } from '@/utils/supabase/server';
+import { revalidatePath } from 'next/cache';
 
 export const addProduct = async (userId: string, productId: number, productQuantity: number) => {
     const supabase = createClient();
@@ -31,7 +32,7 @@ export const addProduct = async (userId: string, productId: number, productQuant
         if (error) {
             throw error;
         }
-
+        revalidatePath("/cart");
         return data;
     } catch (error: any) {
         console.error('Error adding product to cart:', error.message);

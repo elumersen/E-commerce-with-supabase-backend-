@@ -4,7 +4,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { CartProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
-import { ToastContainer } from "react-toastify";
 
 config.autoAddCss = false;
 const defaultUrl = process.env.VERCEL_URL
@@ -27,7 +26,6 @@ export default function RootLayout({
       <body className="bg-background text-foreground">
         <main className="min-h-screen flex flex-col items-center">
           <CartProvider>
-            <ToastContainer autoClose={2500} position="top-right" />
             <Header />
             {children}
           </CartProvider>

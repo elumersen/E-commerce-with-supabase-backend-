@@ -10,7 +10,7 @@ import ProductCartButton from "./ProductCartButton";
 
 const Product = ({ product }: ProductProps) => {
 
-  const { album, artist, genre, id, price, thumbnail, year } = product
+  const { album, artist, price, thumbnail } = product;
  
   return (
     <div className="rounded-lg flex flex-col justify-center items-center relative overflow-hidden">

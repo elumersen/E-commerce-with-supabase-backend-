@@ -1,9 +1,8 @@
 import React from "react";
 import { IProduct } from "@/models/productModel";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import ShoppingCartRemoveButton from "./ShoppincartRemoveButton";
+import ShoppingCartQuantityButtons from "./ShoppingCartQuantityButtons";
 
 export type CartProps = {
   cartProducts: IProduct;
@@ -30,19 +29,7 @@ const ShoppingCart = ({ cartProducts, quantity, cartId }: CartProps) => {
         <div className="flex items-center space-x-4">
           <p className="text-gray-400 text-sm">{genre}</p>
         </div>
-        <div className="flex flex-row items-center w-7 justify-between">
-          <p className="text-gray-400 text-sm">{quantity}</p>
-          <div className="flex flex-col pl-5">
-            <FontAwesomeIcon
-              icon={faPlus}
-              className="rounded-full bg-gray-400 p-1 text-xs h-5 w-3 mb-2"
-            />
-            <FontAwesomeIcon
-              icon={faMinus}
-              className="rounded-full bg-gray-400 p-1 text-xs h-5 w-3"
-            />
-          </div>
-        </div>
+        <ShoppingCartQuantityButtons cartId={cartId} initialQuantity={quantity} />
         <div className="flex items-center space-x-4">
           <p className="text-gray-400 text-sm">{price} $</p>
         </div>
