@@ -2,6 +2,7 @@ import { cartService } from "@/services/cartProducts";
 import { TCartItem } from "@/types/";
 import { ICartItem } from "@/models/cartItemModel";
 import ShoppingCart from ".";
+import ShoppingCartTotal from "./ShoppicartTotal";
 
 const ShoppingCartTList = async () => {
   const carts: TCartItem = await cartService.getCartProducts();
@@ -17,7 +18,7 @@ const ShoppingCartTList = async () => {
           cartProducts={cart.product_id}
         />
       ))}
-     
+      <ShoppingCartTotal carts={carts} />
     </div>
   );
 };
