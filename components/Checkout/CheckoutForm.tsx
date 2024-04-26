@@ -35,7 +35,7 @@ const CheckoutForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="w-[80%]" onSubmit={handleSubmit}>
             <div className="mb-5 flex flex-col">
                 <label className="mr-3 mb-3 text-sm text-gray-500" htmlFor="name">
                     Name:

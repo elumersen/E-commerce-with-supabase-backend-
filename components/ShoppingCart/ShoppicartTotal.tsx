@@ -6,6 +6,7 @@ export type CartProps = {
 };
 
 const ShoppingCartTotal = ({ carts }: CartProps) => {
+
     const totalPrice = useMemo(() => {
         return carts.reduce((acc, cartItem) => {
             const productPrice = cartItem.product_id.price;

@@ -1,21 +1,21 @@
 'use client';
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { IProduct } from '@/models/productModel';
 import { ICartItem } from '@/models/cartItemModel';
 import { addProduct } from "@/app/lib/actions/add-product";
 import { deleteProduct } from "@/app/lib/actions/delete-product";
 import { updateCartItemQuantity } from "@/app/lib/actions/update-cart-quantity";
 import { addCheckout } from "@/app/lib/actions/add-checkout";
-import { redirect } from 'next/dist/server/api-utils';
 
 
 interface CartContextType {
   cart: IProduct[];
+  cartTotal: number;
   addToCart: (userId: string, product: IProduct, quantity: number) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, newQuantity: number) => void;
-  createOrder: (cartId:number, cartTotal: number, shippingAddress: string, paymentMethod: string, name: string) => void;
+  createOrder: (cartId: number, cartTotal: number, shippingAddress: string, paymentMethod: string, name: string) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -31,6 +31,7 @@ export const useCart = () => {
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<IProduct[]>([]);
   const [cartDetails, setCartDetails] = useState<ICartItem[]>([]);
+  const [cartTotal, setCartTotal] = useState<number>(0);
 
   const addToCart = async (userId: string, product: IProduct, quantity: number) => {
     try {
@@ -69,16 +70,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const createOrder = async ( cartId: number, cartTotal: number, shippingAddress: string, paymentMethod: string, name: string) => {
+  const createOrder = async (cartId: number, cartTotal: number, shippingAddress: string, paymentMethod: string, name: string) => {
     try {
-      await addCheckout( cartId, cartTotal, shippingAddress, paymentMethod, name);
+      await addCheckout(cartId, cartTotal, shippingAddress, paymentMethod, name);
     } catch (error: any) {
       console.error('Error creating order:', error.message);
     }
   };
 
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, createOrder }}>
+    <CartContext.Provider value={{ cart, addToCart, cartTotal, removeFromCart, updateQuantity, createOrder }}>
       {children}
     </CartContext.Provider>
   );
