@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { fetchCartDetails, fetchProductCarts } from "@/app/lib/actions/cart-actions";
+import { ICartItem } from "@/models/cartItemModel";
 
 export interface orderProducts {
     cartProducts: {
@@ -11,6 +12,7 @@ export interface orderProducts {
     };
     quantity: number;
 }
+
 
 const OrderSummary = () => {
     const [cartDetailsData, setCartDetailsData] = useState<any>({});
@@ -29,18 +31,23 @@ const OrderSummary = () => {
     const getCartProducts = async () => {
         try {
             const data = await fetchProductCarts();
-            const formattedData = data?.map((item: any) => ({
-                cartProducts: {
-                    album: item.product_id.album,
-                    price: item.product_id.price
-                },
-                quantity: item.quantity
-            }));
-            setOrderProducts(formattedData);
+            if (data) {
+                const formattedData = data.map((item: any) => ({
+                    cartProducts: {
+                        album: item.product_id.album,
+                        price: item.product_id.price
+                    },
+                    quantity: item.quantity
+                }));
+                setOrderProducts(formattedData);
+            } else {
+                console.error("Data is undefined");
+            }
         } catch (error: any) {
             console.error("Error fetching products details:", error.message);
         }
     }
+    
 
     const formatCreationDate = (dateString: string) => {
         const parts = dateString?.split('T');
