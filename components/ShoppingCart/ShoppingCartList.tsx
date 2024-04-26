@@ -4,8 +4,6 @@ import { TCartItem } from "@/types/";
 import { ICartItem } from "@/models/cartItemModel";
 import ShoppingCart from ".";
 import ShoppingCartTotal from "./ShoppicartTotal";
-import CheckoutButton from "../Checkout/CheckoutButton";
-import CheckoutSummary from "../Checkout/ChekcoutSummary";
 
 const ShoppingCartTList = async () => {
   const carts: TCartItem = await cartService.getCartProducts();
@@ -38,7 +36,6 @@ const ShoppingCartTList = async () => {
           </div>
         </div>
       </div>
-      <CheckoutSummary />
     </div>
   );
 };

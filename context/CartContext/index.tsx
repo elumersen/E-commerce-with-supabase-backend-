@@ -15,7 +15,7 @@ interface CartContextType {
   addToCart: (userId: string, product: IProduct, quantity: number) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, newQuantity: number) => void;
-  createOrder: (cartId: number, cartTotal: number, shippingAddress: string, paymentMethod: string) => void;
+  createOrder: (cartId:number, cartTotal: number, shippingAddress: string, paymentMethod: string, name: string) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -69,9 +69,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const createOrder = async (cartId: number, cartTotal: number, shippingAddress: string, paymentMethod: string) => {
+  const createOrder = async ( cartId: number, cartTotal: number, shippingAddress: string, paymentMethod: string, name: string) => {
     try {
-      await addCheckout(cartId, cartTotal, shippingAddress, paymentMethod);
+      await addCheckout( cartId, cartTotal, shippingAddress, paymentMethod, name);
     } catch (error: any) {
       console.error('Error creating order:', error.message);
     }
