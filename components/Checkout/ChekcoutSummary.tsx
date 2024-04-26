@@ -3,6 +3,7 @@
 import React from "react";
 import CheckoutForm from "./CheckoutForm";
 import OrderSummary from "./OrderSummary";
+import Link from "next/link";
 
 const CheckoutSummary = () => {
   return (
@@ -14,6 +15,12 @@ const CheckoutSummary = () => {
         <CheckoutForm />
         <OrderSummary />
       </div>
+      <Link
+        href="/"
+        className="text-gray-700 text-base hover:text-gray-900 focus:outline-none"
+      >
+        Back to shop
+      </Link>
     </div>
   );
 };

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { fetchCartDetails, fetchProductCarts } from "@/app/lib/actions/cart-actions";
-import { ICartItem } from "@/models/cartItemModel";
 
 export interface orderProducts {
     cartProducts: {
@@ -50,10 +49,13 @@ const OrderSummary = () => {
     
 
     const formatCreationDate = (dateString: string) => {
-        const parts = dateString?.split('T');
-        return parts[0];
+        if (dateString) {
+            const parts = dateString.split('T');
+            return parts[0];
+        }
+        return '';
     };
-
+    
     useEffect(() => {
         getCartDetailsData();
         getCartProducts();

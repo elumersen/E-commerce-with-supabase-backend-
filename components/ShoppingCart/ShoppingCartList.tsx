@@ -32,6 +32,12 @@ const ShoppingCartTList = async () => {
             </Link>
             <div className="flex flex-col">
               <ShoppingCartTotal carts={carts} />
+              <Link
+              href="/checkout"
+              className="text-gray-700 text-base hover:text-gray-900 focus:outline-none"
+            >
+              Checkout
+            </Link>
             </div>
           </div>
         </div>
