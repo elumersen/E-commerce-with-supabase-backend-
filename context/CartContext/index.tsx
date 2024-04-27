@@ -11,7 +11,6 @@ import { addCheckout } from "@/app/lib/actions/add-checkout";
 
 interface CartContextType {
   cart: IProduct[];
-  cartTotal: number;
   addToCart: (userId: string, product: IProduct, quantity: number) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, newQuantity: number) => void;
@@ -31,7 +30,6 @@ export const useCart = () => {
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<IProduct[]>([]);
   const [cartDetails, setCartDetails] = useState<ICartItem[]>([]);
-  const [cartTotal, setCartTotal] = useState<number>(0);
 
   const addToCart = async (userId: string, product: IProduct, quantity: number) => {
     try {
@@ -80,7 +78,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, cartTotal, removeFromCart, updateQuantity, createOrder }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, createOrder }}>
       {children}
     </CartContext.Provider>
   );

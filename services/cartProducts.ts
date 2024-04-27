@@ -18,7 +18,6 @@ class CartProducts {
       .neq('completed', true)
       .single()
 
-      console.log('shopping_carts', currentUser?.id)
 
       if(!shopping_carts) return [];
     

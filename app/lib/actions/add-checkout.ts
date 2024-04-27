@@ -15,22 +15,21 @@ export const addCheckout = async (
   } = await supabase.auth.getUser();
   const currentUser = user;
 
-
-
   try {
     let { data: shopping_cart_found } = await supabase
-    .from('shopping_carts')
-    .select('*').eq('user_id', currentUser?.id)
-    .neq('completed', true)
-    .single()
+      .from("shopping_carts")
+      .select("*")
+      .eq("user_id", currentUser?.id)
+      .neq("completed", true)
+      .single();
 
-    if(!shopping_cart_found) throw new Error("shopping cart not found")
+    if (!shopping_cart_found) throw new Error("shopping cart not found");
 
     const { data: orders, error } = await supabase
       .from("orders")
       .insert([
         {
-          cartId: shopping_cart_found.id,
+          cart_id: shopping_cart_found.id,
           total: cartTotal,
           shipping_address: shippingAddress,
           payment_method: paymentMethod,
@@ -42,7 +41,7 @@ export const addCheckout = async (
     const { data: shopping_carts, error: shopping_carts_error } = await supabase
       .from("shopping_carts")
       .update({ completed: true })
-      .eq('id', shopping_cart_found.id)
+      .eq("id", shopping_cart_found.id)
       .select();
 
     if (error) {

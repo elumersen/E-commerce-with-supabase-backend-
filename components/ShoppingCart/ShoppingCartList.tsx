@@ -7,7 +7,6 @@ import ShoppingCartTotal from "./ShoppicartTotal";
 
 const ShoppingCartTList = async () => {
   const carts: TCartItem = await cartService.getCartProducts();
-  console.log('carts', carts)
 
   // Verifica si no hay productos en el carrito
   if (carts.length === 0) {
