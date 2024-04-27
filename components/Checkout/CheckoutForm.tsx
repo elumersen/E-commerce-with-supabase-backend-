@@ -19,7 +19,7 @@ const CheckoutForm = () => {
             securityCode,
         };
         try {
-            await createOrder(11, 200, address, paymentMethod, name);
+            await createOrder( 200, address, paymentMethod, name);
             setOrderSubmitted(true);
         } catch (error: any) {
             console.error("Error creating order:", error.message);

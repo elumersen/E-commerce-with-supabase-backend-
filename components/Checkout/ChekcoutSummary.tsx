@@ -25,4 +25,5 @@ const CheckoutSummary = () => {
   );
 };
 
+
 export default CheckoutSummary;

@@ -7,6 +7,18 @@ import ShoppingCartTotal from "./ShoppicartTotal";
 
 const ShoppingCartTList = async () => {
   const carts: TCartItem = await cartService.getCartProducts();
+  console.log('carts', carts)
+
+  // Verifica si no hay productos en el carrito
+  if (carts.length === 0) {
+    return (
+      <div className="flex flex-row justify-center">
+        <p className="text-2xl font-semibold text-gray-500">
+          Your shopping cart is empty :(
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-row">
@@ -33,11 +45,11 @@ const ShoppingCartTList = async () => {
             <div className="flex flex-col">
               <ShoppingCartTotal carts={carts} />
               <Link
-              href="/checkout"
-              className="text-gray-700 text-base hover:text-gray-900 focus:outline-none"
-            >
-              Checkout
-            </Link>
+                href="/checkout"
+                className="text-gray-700 text-base hover:text-gray-900 focus:outline-none"
+              >
+                Checkout
+              </Link>
             </div>
           </div>
         </div>

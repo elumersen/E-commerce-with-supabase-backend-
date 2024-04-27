@@ -12,32 +12,54 @@ export const addProduct = async (
   const supabase = createClient();
 
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const user = session?.user;
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     console.error("User is not authenticated");
     return;
   }
 
-  let { data: shopping_carts } = await supabase
-    .from("shopping_carts")
-    .select("*")
-    .eq("user_id", user.id);
+ 
 
-  const activeCart: ICart = shopping_carts!.find(
-    (cart) => cart.status === true
-  );
 
   try {
+    let shoppingCartFoundId = 0;
+    
+    let { data: shopping_carts } = await supabase
+    .from("shopping_carts")
+    .select("*")
+    .eq("user_id", user.id)
+    .neq('completed', true)
+    .single();
+    shoppingCartFoundId = shopping_carts?.id;
+// console.log('shopping_carts', shopping_carts)
+    if (!shopping_carts) {
+
+        // console.log('shopping_carts', shopping_carts)
+       
+       let {data: shoppingCartCreated} = await supabase
+          .from('shopping_carts')
+          .insert([
+            { user_id: user?.id,
+              completed: false
+             }
+          ])
+          .select("*")
+          .single();
+        //   console.log('shoppingCartCreated', shoppingCartCreated)
+          shoppingCartFoundId = shoppingCartCreated.id;
+
+      }
+
+      
     const { data, error } = await supabase
       .from("cart_details")
       .insert({
         user_id: user.id,
         product_id: productId,
         quantity: productQuantity,
-        cart_id: activeCart.id,
+        cart_id: shoppingCartFoundId,
       });
 
     if (error) {

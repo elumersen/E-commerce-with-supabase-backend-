@@ -6,8 +6,8 @@ export async function getUserLogged() {
   const supabase = createClient();
 
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
   
-  return session?.user;
+  return user;
 }
