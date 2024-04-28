@@ -4,6 +4,13 @@ import { TRecords } from "@/types";
 import { IRecordsHistory } from "@/models/recordsHistoryModels";
 import Record from "./Record";
 
+type RecordsWithPurchasedProducts = IRecordsHistory & {
+  purchased_products: {
+    album: string;
+    price: number;
+    quantity: number;
+  }[];
+};
 const RecordGrid = ({
   records,
   recordCartDetails,
@@ -11,30 +18,32 @@ const RecordGrid = ({
   records: TRecords;
   recordCartDetails: any;
 }) => {
-
     const cartProductsMap = recordCartDetails.reduce((acc: any, record: any) => {
-        const { cart_id, product_id } = record;
+        const { cart_id, product_id, quantity } = record;
         if (!acc[cart_id.id]) {
           acc[cart_id.id] = [];
         }
-        acc[cart_id.id].push(product_id);
+        const productWithQuantity = { ...product_id, quantity };
+        acc[cart_id.id].push(productWithQuantity);
         return acc;
       }, {});
 
-      const ordersWithPurchasedProducts = records.map((order: any) => ({
-        ...order,
-        purchased_products: cartProductsMap[order.cart_id.id] || []
+      const ordersWithPurchasedProducts: RecordsWithPurchasedProducts[] = records.map((record: IRecordsHistory) => ({
+        ...record,
+        purchased_products: cartProductsMap[record.cart_id.id] || []
       }));
-      
-      console.log('cart', ordersWithPurchasedProducts)
 
+      if (records.length === 0) {
+        return <p>No records found</p>;
+      }
   return (
-    <div>
+    <>
       {ordersWithPurchasedProducts.map((ordersWithPurchasedProducts: IRecordsHistory) => (
         <Record key={ordersWithPurchasedProducts.id} ordersWithPurchasedProducts={ordersWithPurchasedProducts} />
       ))}
-    </div>
+    </>
   );
 };
 
 export default RecordGrid;
+ 

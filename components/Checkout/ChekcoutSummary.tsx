@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const CheckoutSummary = () => {
   return (
-    <div className="bg-[#ECF0F1] px-7 rounded-md flex flex-col w-full max-w-[50%] py-10 mx-3">
+    <div className="bg-[#ECF0F1] h-auto px-7 rounded-md flex flex-col w-full max-w-[50%] py-10 mx-3">
       <p className="text-2xl font-semibold pb-10 text-gray-500 text-left">
         Complete Payment
       </p>

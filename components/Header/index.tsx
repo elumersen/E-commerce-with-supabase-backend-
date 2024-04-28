@@ -15,14 +15,14 @@ export default function Header() {
         <Link href="/">
           <Image width={100} height={100} src={"/logo.png"} alt="logo" />
         </Link>
-        <div className="flex flex-row items-center">
-          <Link
+        <div className="flex flex-row items-center"> 
+          <Link 
             href="/cart"
             className="text-gray-700 px-4 hover:text-gray-900 focus:outline-none"
           >
             <FontAwesomeIcon icon={faCartShopping} />
           </Link>
-          <Link
+          <Link 
             href="/records"
             className="text-gray-700 px-4 hover:text-gray-900 focus:outline-none"
           >

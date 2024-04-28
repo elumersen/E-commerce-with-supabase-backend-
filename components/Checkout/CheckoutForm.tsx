@@ -122,9 +122,9 @@ const CheckoutForm = () => {
             </div>
             <button
                 type="submit"
-                className="bg-gray-400 p-2 rounded-sm text-gray-200 text-sm hover:scale-105 transition-transform w-full"
+                className="bg-gray-500 p-2 rounded-sm text-white flex justify-center items-center max-w-[120px] text-sm hover:scale-105 transition-transform w-full"
             >
-                Submit Order
+               Checkout
             </button>
         </form>
     );

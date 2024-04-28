@@ -100,6 +100,7 @@ export const fetchShoppingHistory = async () => {
         `
       id,
       order_date,
+      total,
       cart_id (
       id,
       completed

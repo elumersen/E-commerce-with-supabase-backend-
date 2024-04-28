@@ -13,14 +13,14 @@ const RecordsList = async () => {
   const userEmail = currentLoggedUser?.email || "";
 
   return (
-    <div>
-      <p>Hello! {userEmail}</p>
-      <h2>Orders History</h2>
-      <RecordGrid
-        records={records}
-        recordCartDetails={recordCartDetails}
-
-      />
+    <div className="h-full py-5">
+      <p className="text-3xl text-white pb-5">
+        Hello! <span className="font-bold"> {userEmail}</span>
+      </p>
+      <div className="bg-white rounded-sm w-full max-w-[700px] h-[540px] p-5 overflow-y-auto">
+        <h2 className="text-slate-900 text-xl pb-5">Orders History</h2>
+        <RecordGrid records={records} recordCartDetails={recordCartDetails} />
+      </div>
     </div>
   );
 };

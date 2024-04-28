@@ -38,12 +38,14 @@ const ProductGrid = ({ products }: { products: TProducts }) => {
   };
   return (
     <>
-      <Dropdown
-        options={options}
-        onChange={handleSelect}
-        value={dropdownOption || undefined}
-        placeholder="Select an option"
-      />
+      <div className="w-full max-w-[70rem] flex justify-end pt-5 mx-auto">
+        <Dropdown
+          options={options}
+          onChange={handleSelect}
+          value={dropdownOption || undefined}
+          placeholder="Music"
+        />
+      </div>
       <div className="grid grid-rows-6 grid-flow-col gap-4 w-full max-w-[70rem] mx-auto pt-6">
         {filteredProducts.map((product: IProduct) => (
           <Product key={product.id} product={product} />

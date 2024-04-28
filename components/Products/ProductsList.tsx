@@ -6,7 +6,7 @@ const ProductsList = async () => {
   const products: TProducts = await productsService.getAllProducts();
 
   return (
-      <div className="">
+      <div className="flex flex-col">
         <ProductGrid products={products} />
       </div>
   );
