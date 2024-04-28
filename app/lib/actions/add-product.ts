@@ -20,47 +20,35 @@ export const addProduct = async (
     return;
   }
 
- 
-
-
   try {
     let shoppingCartFoundId = 0;
-    
+
     let { data: shopping_carts } = await supabase
-    .from("shopping_carts")
-    .select("*")
-    .eq("user_id", user.id)
-    .neq('completed', true)
-    .single();
+      .from("shopping_carts")
+      .select("*")
+      .eq("user_id", user.id)
+      .neq("completed", true)
+      .single();
     shoppingCartFoundId = shopping_carts?.id;
-// console.log('shopping_carts', shopping_carts)
+    // console.log('shopping_carts', shopping_carts)
     if (!shopping_carts) {
+      // console.log('shopping_carts', shopping_carts)
 
-        // console.log('shopping_carts', shopping_carts)
-       
-       let {data: shoppingCartCreated} = await supabase
-          .from('shopping_carts')
-          .insert([
-            { user_id: user?.id,
-              completed: false
-             }
-          ])
-          .select("*")
-          .single();
-        //   console.log('shoppingCartCreated', shoppingCartCreated)
-          shoppingCartFoundId = shoppingCartCreated.id;
+      let { data: shoppingCartCreated } = await supabase
+        .from("shopping_carts")
+        .insert([{ user_id: user?.id, completed: false }])
+        .select("*")
+        .single();
+      //   console.log('shoppingCartCreated', shoppingCartCreated)
+      shoppingCartFoundId = shoppingCartCreated.id;
+    }
 
-      }
-
-      
-    const { data, error } = await supabase
-      .from("cart_details")
-      .insert({
-        user_id: user.id,
-        product_id: productId,
-        quantity: productQuantity,
-        cart_id: shoppingCartFoundId,
-      });
+    const { data, error } = await supabase.from("cart_details").insert({
+      user_id: user.id,
+      product_id: productId,
+      quantity: productQuantity,
+      cart_id: shoppingCartFoundId,
+    });
 
     if (error) {
       throw error;

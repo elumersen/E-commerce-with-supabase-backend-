@@ -34,6 +34,7 @@ export const addCheckout = async (
           shipping_address: shippingAddress,
           payment_method: paymentMethod,
           name: checkoutName,
+          user_id: currentUser?.id,
         },
       ])
       .select();

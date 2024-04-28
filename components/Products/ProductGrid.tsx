@@ -3,21 +3,23 @@
 import { useState } from "react";
 import { TProducts } from "@/types/";
 import { IProduct } from "@/models/productModel";
+import Dropdown, { Option } from "react-dropdown";
 import "react-dropdown/style.css";
 import Product from "./Product";
-import Dropdown, { Option } from "react-dropdown";
 
 const ProductGrid = ({ products }: { products: TProducts }) => {
   const [dropdownOption, setDropdownOption] = useState<string | null>(null);
-  
-  
-  const filterProducts = (option: string | null, products: IProduct[]): IProduct[] => {
-      if (option === "products" || !option) return products;
-      return products.filter((product: IProduct) => product.genre === option);
-    };
-    
-    const filteredProducts = filterProducts(dropdownOption, products);
-    
+
+  const filterProducts = (
+    option: string | null,
+    products: IProduct[]
+  ): IProduct[] => {
+    if (option === "products" || !option) return products;
+    return products.filter((product: IProduct) => product.genre === option);
+  };
+
+  const filteredProducts = filterProducts(dropdownOption, products);
+
   const options: Option[] = [
     { value: "products", label: "All Products" },
     { value: "Rock", label: "Rock" },
@@ -29,7 +31,6 @@ const ProductGrid = ({ products }: { products: TProducts }) => {
     { value: "Grunge", label: "Grunge" },
     { value: "Reggaeton", label: "Reggaeton" },
     { value: "Indie Rock", label: "Indie Rock" },
-
   ];
 
   const handleSelect = (option: Option) => {
