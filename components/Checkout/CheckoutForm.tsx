@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useCart } from "@/context/CartContext";
 
 const CheckoutForm = () => {
-    const { createOrder } = useCart();
+    const { createOrder, shoppingTotal } = useCart();
     const [paymentMethod, setPaymentMethod] = useState("");
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
@@ -19,7 +19,7 @@ const CheckoutForm = () => {
             securityCode,
         };
         try {
-            await createOrder( 200, address, paymentMethod, name);
+            await createOrder( shoppingTotal, address, paymentMethod, name);
             setOrderSubmitted(true);
         } catch (error: any) {
             console.error("Error creating order:", error.message);

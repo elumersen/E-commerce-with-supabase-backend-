@@ -30,16 +30,12 @@ export const addProduct = async (
       .neq("completed", true)
       .single();
     shoppingCartFoundId = shopping_carts?.id;
-    // console.log('shopping_carts', shopping_carts)
     if (!shopping_carts) {
-      // console.log('shopping_carts', shopping_carts)
-
       let { data: shoppingCartCreated } = await supabase
         .from("shopping_carts")
         .insert([{ user_id: user?.id, completed: false }])
         .select("*")
         .single();
-      //   console.log('shoppingCartCreated', shoppingCartCreated)
       shoppingCartFoundId = shoppingCartCreated.id;
     }
 

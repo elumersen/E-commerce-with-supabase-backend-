@@ -8,10 +8,6 @@ import { deleteProduct } from "@/app/lib/actions/delete-product";
 import { updateCartItemQuantity } from "@/app/lib/actions/update-cart-quantity";
 import { addCheckout } from "@/app/lib/actions/add-checkout";
 
-type DropdownOption = {
-  value: string;
-  label: string;
-};
 interface CartContextType {
   cart: IProduct[];
   addToCart: (userId: string, product: IProduct, quantity: number) => void;
@@ -23,10 +19,13 @@ interface CartContextType {
     paymentMethod: string,
     name: string
   ) => void;
-
+  shoppingTotal: number;
+  setShoppingTotal: (total: number) => void;
 }
 
-export const CartContext = createContext<CartContextType | undefined>(undefined);
+export const CartContext = createContext<CartContextType | undefined>(
+  undefined
+);
 
 export const useCart = () => {
   const context = useContext(CartContext);
@@ -39,7 +38,7 @@ export const useCart = () => {
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<IProduct[]>([]);
   const [cartDetails, setCartDetails] = useState<ICartItem[]>([]);
-
+  const [shoppingTotal, setShoppingTotal] = useState<number>(0);
 
   const addToCart = async (
     userId: string,
@@ -97,6 +96,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     <CartContext.Provider
       value={{
         cart,
+        shoppingTotal,
+        setShoppingTotal,
         addToCart,
         removeFromCart,
         updateQuantity,

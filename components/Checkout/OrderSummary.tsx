@@ -2,11 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import {
-  fetchCartDetails,
-  fetchProductCarts,
-  fetchCurrentCart,
-} from "@/app/lib/actions/cart-actions";
+import { fetchCurrentCart } from "@/app/lib/actions/cart-actions";
+import { useCart } from "@/context/CartContext";
 
 export interface orderProducts {
   cartProducts: {
@@ -15,19 +12,11 @@ export interface orderProducts {
   };
   quantity: number;
 }
-interface CartItem {
-  quantity: number;
-  product_id: {
-    album: string;
-    price: number;
-  };
-}
-
 const OrderSummary = () => {
-const [cartDetailsData, setCartDetailsData] = useState<any[]>([]);
+  const { shoppingTotal } = useCart();
+  const [cartDetailsData, setCartDetailsData] = useState<any[]>([]);
   const [orderProducts, setOrderProducts] = useState<orderProducts[]>([]);
-  const [totalAmount, setTotalAmount] = useState<number>(0);
-
+  
   const getIncompleted = async () => {
     try {
       const data: any[] | undefined = await fetchCurrentCart();
@@ -43,23 +32,16 @@ const [cartDetailsData, setCartDetailsData] = useState<any[]>([]);
     }
   };
 
-  //     if (dateString) {
-  //       const parts = dateString.split("T");
-  //       return parts[0];
-  //     }
-  //     return "";
-  //   };
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let currentDate = `${day}-${month}-${year}`;
 
   useEffect(() => {
     getIncompleted();
   }, []);
-
-  useEffect(() => {
-    const total = orderProducts.reduce((acc, product) => {
-      return acc + product.cartProducts.price * product.quantity;
-    }, 0);
-    setTotalAmount(total);
-  }, [orderProducts]);
 
   const renderCartDetails = () => {
     if (!cartDetailsData) return;
@@ -71,9 +53,6 @@ const [cartDetailsData, setCartDetailsData] = useState<any[]>([]);
       </div>
     ));
   };
-
-
-  
 
   return (
     <div className="bg-white shadow-md py-5 w-[60%] font-mono flex flex-col text-center">
@@ -87,13 +66,13 @@ const [cartDetailsData, setCartDetailsData] = useState<any[]>([]);
       />
       <div className="flex flex-col items-start px-3 pb-6">
         <p>Order ID:</p>
-        <p>Date:</p>
+        <p>Date: {currentDate}</p>
       </div>
       <span className="pb-5 block">------------------------------</span>
       {renderCartDetails()}
       <div className="text-left  px-3">
         <span className="pb-5 block">------------------------------</span>
-        <p>Total: $ {totalAmount.toFixed(2)}</p>
+        <p>Total: $ {shoppingTotal.toFixed(2)}</p>
       </div>
       <span className="pb-5 block">------------------------------</span>
       <p className="text-bold text-xs">THANK YOU FOR SHOPPING!</p>
