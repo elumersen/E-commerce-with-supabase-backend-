@@ -1,7 +1,5 @@
 import Image from "next/image";
 import { IProduct } from "@/models/productModel";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import ProductCartButton from "./ProductCartButton";
 
   export type ProductProps = {
