@@ -1,10 +1,10 @@
 import { TCartItem } from "@/types";
 import { createClient } from "@/utils/supabase/server";
 
-const supabase = createClient();
 
 class CartProducts {
   async getCartProducts(): Promise<TCartItem> {
+    const supabase = createClient();
 
     const {
       data: { user },

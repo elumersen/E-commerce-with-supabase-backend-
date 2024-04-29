@@ -2,10 +2,10 @@
 import { TProducts } from '@/types';
 import { createClient } from '@/utils/supabase/server';
 
-const supabase = createClient();
 
 class Products {
   async getAllProducts(): Promise<TProducts> {
+    const supabase = createClient();
     try {
       const { error, data: products } = await supabase
         .from('products')
