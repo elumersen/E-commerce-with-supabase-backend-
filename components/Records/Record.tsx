@@ -40,7 +40,7 @@ const Record = ({ ordersWithPurchasedProducts }: RecordProps) => {
         <div>{renderPurchasedProducts()}</div>
       </div>
       <hr className="pb-2" />
-      <div className="flex flex-row text-sm pb-2">
+      <div className="flex flex-row text-sm  pb-2">
         <p className="font-bold pr-2">Total: </p>
         <p>{total} $</p>
       </div>
