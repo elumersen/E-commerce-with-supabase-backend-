@@ -10,7 +10,7 @@ const Record = ({ ordersWithPurchasedProducts }: RecordProps) => {
   const statusOrder = cart_id.completed ? "completed" : "pending";
 
   const renderPurchasedProducts = () => {
-    return purchased_products.map((product: any, index: number) => (
+    return purchased_products?.map((product: any, index: number) => (
       <div className="flex flex-row w-full justify-between text-sm text-gray-400" key={index}>
         <div className="flex flex-row">
           <p className="pr-3">{product.album}</p>
@@ -22,7 +22,7 @@ const Record = ({ ordersWithPurchasedProducts }: RecordProps) => {
     ));
   };
   return (
-    <div className="flex flex-col p-5 mb-5 bg-slate-200 w-full rounded-md">
+    <div className="flex flex-col p-5 mb-5 bg-slate-200 w-full rounded-md overflow-y-auto">
       <div className="flex flex-row justify-between w-full">
         <p className="font-bold pb-2 text-base">
           Order
