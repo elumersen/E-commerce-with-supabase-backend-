@@ -18,16 +18,17 @@ const ShoppingCartQuantityButtons = ({
     const { updateQuantity } = useCart();
     const [quantity, setQuantity] = useState(initialQuantity);
 
-
     const increaseCount = async () => {
-        setQuantity(quantity + 1);
-        await updateQuantity(cartId, quantity);
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
+        await updateQuantity(cartId, newQuantity);
     };
-
+    
     const decreaseCount = async () => {
         if (quantity > 1) {
-            setQuantity(quantity - 1); 
-            await updateQuantity(cartId, quantity - 1);
+            const newQuantity = quantity - 1;
+            setQuantity(newQuantity); 
+            await updateQuantity(cartId, newQuantity);
         }
     };
     
