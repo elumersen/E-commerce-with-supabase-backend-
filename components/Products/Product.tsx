@@ -17,7 +17,7 @@ const Product = ({ product }: ProductProps) => {
         <p className="text-base text-gray-300 font-semibold">{album}</p>
         <h3 className="text-sm text-gray-400">{artist}</h3>
         <p className="text-sm text-gray-400">{price} $</p>
-        <ProductCartButton product={product}/>
+        <ProductCartButton productId={product.id}/>
       </div>
     </div>
   );

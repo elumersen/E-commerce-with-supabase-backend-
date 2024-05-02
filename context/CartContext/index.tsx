@@ -10,7 +10,7 @@ import { addCheckout } from "@/app/lib/actions/add-checkout";
 
 interface CartContextType {
   cart: IProduct[];
-  addToCart: (userId: string, product: IProduct, quantity: number) => void;
+  addToCart: ( productId: number, quantity: number) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, newQuantity: number) => void;
   createOrder: (
@@ -41,13 +41,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [shoppingTotal, setShoppingTotal] = useState<number>(0);
 
   const addToCart = async (
-    userId: string,
-    product: IProduct,
+    productId: number,
     quantity: number
   ) => {
     try {
-      await addProduct(userId, product.id, quantity);
-      setCart([...cart, product]);
+      await addProduct(productId, quantity);
     } catch (error: any) {
       console.error("Error adding product to cart:", error.message);
     }

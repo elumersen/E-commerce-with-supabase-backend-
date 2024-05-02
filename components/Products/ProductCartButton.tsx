@@ -1,34 +1,29 @@
 "use client";
 import { useCart } from "@/context/CartContext";
-import { IProduct } from "@/models/productModel";
-import { getUserLogged } from "@/utils/getUserLogged";
+
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export type ProductCartButtonProps = {
-  product: IProduct,
+  productId: number,
 }
 
-const ProductCartButton = ({ product }: ProductCartButtonProps) => {
+const ProductCartButton = ({ productId }: ProductCartButtonProps) => {
   const { addToCart } = useCart();
-
-  const [userId, setUserId] = useState<string>("");
-
-  useEffect(() => {
-    const getUserId = async () => {
-      const data = await getUserLogged()
-      setUserId(data?.id as string)
-    }
-
-    getUserId()
-  }, [])
-
+  
+  const CustomIcon = () => (
+    <span role="img" aria-label="rocket">
+   🎵
+    </span>
+  );
+  
   const handleAddToCart = async () => {
     try {
-      addToCart(userId, product, 1);
-      toast.success("Product added to cart");
+      addToCart( productId, 1);
+      toast.success("Product added to cart", {
+        icon: CustomIcon
+      });
     } catch (error: any) {
       toast.error(error.message);
     }

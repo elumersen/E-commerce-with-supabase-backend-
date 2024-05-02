@@ -1,11 +1,9 @@
 "use server";
 
-import { ICart } from "@/models/cart";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
 export const addProduct = async (
-  userId: string,
   productId: number,
   productQuantity: number
 ) => {
