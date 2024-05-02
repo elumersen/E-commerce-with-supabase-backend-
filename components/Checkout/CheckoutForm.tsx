@@ -19,7 +19,7 @@ const CheckoutForm = () => {
             securityCode,
         };
         try {
-            await createOrder( shoppingTotal, address, paymentMethod, name);
+            await createOrder(shoppingTotal, address, paymentMethod, name);
             setOrderSubmitted(true);
         } catch (error: any) {
             console.error("Error creating order:", error.message);
@@ -43,6 +43,7 @@ const CheckoutForm = () => {
                 <input
                     type="text"
                     id="name"
+                    required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="border-none bg-gray-200 rounded-md text-sm text-gray-400 p-2 w-full focus:outline-none"
@@ -55,6 +56,7 @@ const CheckoutForm = () => {
                 <input
                     type="text"
                     id="address"
+                    required
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     className="border-none bg-gray-200 rounded-md text-sm text-gray-400 p-2 w-full focus:outline-none"
@@ -68,6 +70,7 @@ const CheckoutForm = () => {
                 <input
                     type="text"
                     id="cardNumber"
+                    required
                     value={cardNumber}
                     onChange={(e) => setCardNumber(e.target.value)}
                     className="border-none bg-gray-200 rounded-md text-sm text-gray-400 p-2 w-full focus:outline-none"
@@ -81,6 +84,7 @@ const CheckoutForm = () => {
                     <input
                         type="text"
                         id="expiryDate"
+                        required
                         value={expiryDate}
                         onChange={(e) => setExpiryDate(e.target.value)}
                         className="border-none bg-gray-200 rounded-md text-sm text-gray-400 p-2 w-full focus:outline-none"
@@ -93,6 +97,7 @@ const CheckoutForm = () => {
                     <input
                         type="text"
                         id="securityCode"
+                        required
                         value={securityCode}
                         onChange={(e) => setSecurityCode(e.target.value)}
                         className="border-none bg-gray-200 rounded-md text-sm text-gray-400 p-2 w-full focus:outline-none"
@@ -106,6 +111,7 @@ const CheckoutForm = () => {
                 <select
                     id="paymentMethod"
                     value={paymentMethod}
+                    required
                     onChange={(e) => setPaymentMethod(e.target.value)}
                     className="border-none bg-gray-200 rounded-md p-2 text-gray-500 hover:text-gray-700 focus:outline-none w-full"
                 >
@@ -124,7 +130,7 @@ const CheckoutForm = () => {
                 type="submit"
                 className="bg-gray-500 p-2 rounded-sm text-white flex justify-center items-center max-w-[120px] text-sm hover:scale-105 transition-transform w-full"
             >
-               Checkout
+                Checkout
             </button>
         </form>
     );
