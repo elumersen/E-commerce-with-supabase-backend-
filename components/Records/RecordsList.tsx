@@ -2,13 +2,13 @@ import {
   fetchCurrentCart,
   fetchShoppingHistory,
 } from "@/app/lib/actions/cart-actions";
-import { TCartDetailsResponse, TShoppingHistoryResponse, } from "@/types/";
 import RecordGrid from "./RecordGrid";
 import { getUserLogged } from "@/utils/getUserLogged";
 
+
 const RecordsList = async () => {
-  const records: TShoppingHistoryResponse = await fetchShoppingHistory();
-  const recordCartDetails: TCartDetailsResponse = await fetchCurrentCart();
+  const records: any = await fetchShoppingHistory();
+  const recordCartDetails: any = await fetchCurrentCart();
   const currentLoggedUser = await getUserLogged();
   const userEmail = currentLoggedUser?.email || "";
 

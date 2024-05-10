@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { useCart } from "@/context/CartContext";
 
+type FormValues = {
+    name: string;
+    address: string;
+    cardNumber: string;
+    expiryDate: string;
+    securityCode: string;
+    paymentMethod: string;
+  };
+  
+
+
 const CheckoutForm = () => {
     const { createOrder, shoppingTotal } = useCart();
     const [paymentMethod, setPaymentMethod] = useState("");
@@ -11,20 +22,30 @@ const CheckoutForm = () => {
     const [securityCode, setSecurityCode] = useState("");
     const [orderSubmitted, setOrderSubmitted] = useState(false);
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
-        const paymentDetails = {
-            cardNumber,
-            expiryDate,
-            securityCode,
+        const formData: FormValues = {
+          name,
+          address,
+          cardNumber,
+          expiryDate,
+          securityCode,
+          paymentMethod,
         };
+        submitFormData(e, formData);
+      };
+    
+      const submitFormData = async (
+        e: React.FormEvent<HTMLFormElement>,
+        formData: FormValues
+      ) => {
         try {
-            await createOrder(shoppingTotal, address, paymentMethod, name);
-            setOrderSubmitted(true);
+          await createOrder(shoppingTotal, formData.address, formData.paymentMethod, formData.name);
+          setOrderSubmitted(true);
         } catch (error: any) {
-            console.error("Error creating order:", error.message);
+          console.error("Error creating order:", error.message);
         }
-    };
+      };
 
     if (orderSubmitted) {
         return (

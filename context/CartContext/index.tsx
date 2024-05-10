@@ -69,9 +69,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         if (cart.id === productId) {
           return { ...cart, quantity: newQuantity };
         }
-        setCartDetails(updatedCart);
         return cart;
       });
+      setCartDetails(updatedCart);
     } catch (error: any) {
       console.error("Error removing product from cart:", error.message);
     }

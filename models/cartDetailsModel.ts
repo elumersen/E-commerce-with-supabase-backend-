@@ -7,6 +7,6 @@ export interface ICartDetails {
     }[];
     product_id: {
       album: string;
-      price: string;
-    }[];
+      price: number;
+    };
   }

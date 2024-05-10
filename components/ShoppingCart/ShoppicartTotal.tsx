@@ -10,7 +10,7 @@ const ShoppingCartTotal = ({ carts }: CartProps) => {
   const { shoppingTotal, setShoppingTotal } = useCart();
 
   useEffect(() => {
-    const totalPrice = carts.reduce((acc, cartItem) => {
+    const totalPrice = carts.reduce((acc: number, cartItem: ICartItem) => {
       const productPrice = cartItem.product_id.price;
       const productQuantity = cartItem.quantity;
       return acc + productPrice * productQuantity;

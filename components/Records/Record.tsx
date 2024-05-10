@@ -3,6 +3,11 @@ import { IRecordsHistory } from "@/models/recordsHistoryModels";
 export type RecordProps = {
   ordersWithPurchasedProducts: IRecordsHistory;
 };
+export type PurchasedProduct = {
+  album: string;
+  price: number;
+  quantity: number;
+};
 
 const Record = ({ ordersWithPurchasedProducts }: RecordProps) => {
   const { order_date, id, purchased_products, cart_id, total } =
@@ -10,7 +15,7 @@ const Record = ({ ordersWithPurchasedProducts }: RecordProps) => {
   const statusOrder = cart_id.completed ? "completed" : "pending";
 
   const renderPurchasedProducts = () => {
-    return purchased_products?.map((product: any, index: number) => (
+    return purchased_products?.map((product: PurchasedProduct, index: number) => (
       <div className="flex flex-row w-full justify-between text-sm text-gray-400" key={index}>
         <div className="flex flex-row">
           <p className="pr-3">{product.album}</p>

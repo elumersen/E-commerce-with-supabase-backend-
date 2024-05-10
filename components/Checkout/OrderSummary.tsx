@@ -4,19 +4,28 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { fetchCurrentCart } from "@/app/lib/actions/cart-actions";
 import { useCart } from "@/context/CartContext";
+import { ICartDetails } from "@/models/cartDetailsModel";
 
-export interface orderProducts {
-  cartProducts: {
+interface ICartDetailsx {
+  quantity: number;
+  user_id: string;
+  cart_id: {
+    id: number;
+    completed: boolean;
+  };
+  product_id: {
     album: string;
     price: number;
   };
-  quantity: number;
 }
+
+
 const OrderSummary = () => {
   const { shoppingTotal } = useCart();
-  const [cartDetailsData, setCartDetailsData] = useState<any[]>([]);
+  const [cartDetailsData, setCartDetailsData] = useState<ICartDetails[]>([]);
 
-  const getIncompleted = async () => {
+
+  const getIncomplete = async () => {
     try {
       const data: any[] | undefined = await fetchCurrentCart();
       if (!data) {
@@ -31,6 +40,10 @@ const OrderSummary = () => {
     }
   };
 
+  useEffect(() => {
+    getIncomplete();
+  }, []);
+
   const date = new Date();
 
   let day = date.getDate();
@@ -38,24 +51,19 @@ const OrderSummary = () => {
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
 
-  useEffect(() => {
-    getIncompleted();
-  }, []);
 
   const renderCartDetails = () => {
-    if (!cartDetailsData) return;
-    return cartDetailsData?.map((item: any, index: number) => (
-      <div
-        key={index}
-        className="text-left px-3 text-xs flex flex-row w-full justify-between"
-      >
+    if (!cartDetailsData) return null;
+    return cartDetailsData.map((item: ICartDetails, index: number) => (
+      <div key={index} className="text-left px-3 text-xs flex flex-row w-full justify-between">
         <p>{item.product_id.album}</p>
         <p>{item.product_id.price.toFixed(2)}</p>
         <p>x {item.quantity}</p>
       </div>
     ));
   };
-
+  
+  
   return (
     <div className="bg-white shadow-md py-5  font-mono flex flex-col text-center w-full xl:max-w-[430px] 2xl:max-w-[300px]">
       <h3 className="uppercase pb-5">------- Order summary -------</h3>
